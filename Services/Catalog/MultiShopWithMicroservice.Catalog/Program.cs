@@ -1,3 +1,9 @@
+using Microsoft.Extensions.Options;
+using MultiShopWithMicroservice.Catalog.Services.CategoryServices;
+using MultiShopWithMicroservice.Catalog.Services.ProductDetailServices;
+using MultiShopWithMicroservice.Catalog.Services.ProductImageServices;
+using MultiShopWithMicroservice.Catalog.Services.ProductServices;
+using MultiShopWithMicroservice.Catalog.Settings;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,7 +13,18 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductDetailService, ProductDetailService>();
+builder.Services.AddScoped<IProductImageService, ProductImageService>();
+
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettings"));
+builder.Services.AddScoped<IDatabaseSettings>(sp =>
+{
+    return sp.GetRequiredService<IOptions<DatabaseSettings>>().Value;
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
