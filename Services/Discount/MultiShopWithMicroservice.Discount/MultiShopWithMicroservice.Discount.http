@@ -1,0 +1,6 @@
+@MultiShopWithMicroservice.Discount_HostAddress = http://localhost:5241
+
+GET {{MultiShopWithMicroservice.Discount_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
