@@ -1,0 +1,5 @@
+
+IdentityServer - 5001
+Catalog - 7070,5100
+Discount - 7071,5101
+Order - 7072,5102

@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MultiShopWithMicroservice.Catalog.Dtos.ProductImageDtos;
 using MultiShopWithMicroservice.Catalog.Services.ProductImageServices;
 
 namespace MultiShopWithMicroservice.Catalog.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductImagesController : ControllerBase
