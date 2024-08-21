@@ -7,7 +7,7 @@ namespace MultiShopWithMicroservice.Basket.Settings
         private readonly string _host;
         private readonly int _port;
         private ConnectionMultiplexer _connectionMultiplexer;
-        public RedisService(int port, string host)
+        public RedisService(string host,int port)
         {
             _port = port;
             _host = host;

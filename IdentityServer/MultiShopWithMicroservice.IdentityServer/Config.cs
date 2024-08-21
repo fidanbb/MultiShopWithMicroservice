@@ -57,7 +57,7 @@ namespace MultiShopWithMicroservice.IdentityServer
             {
                 ClientId="MultiShopVisitorId",
                 ClientName="Multi Shop Visitor User",
-                AllowedGrantTypes=GrantTypes.ClientCredentials,
+                AllowedGrantTypes=GrantTypes.ResourceOwnerPassword,
                 ClientSecrets={new Secret("multishopsecret".Sha256())},
                 AllowedScopes={ "CatalogReadPermission", "CatalogFullPermission", "OcelotFullPermission", 
                                 "CommentFullPermission", "ImageFullPermission", "BasketFullPermission", 
@@ -71,7 +71,7 @@ namespace MultiShopWithMicroservice.IdentityServer
             {
                 ClientId="MultiShopManagerId",
                 ClientName="Multi Shop Manager User",
-                AllowedGrantTypes=GrantTypes.ClientCredentials,
+                AllowedGrantTypes=GrantTypes.ResourceOwnerPassword,
                 ClientSecrets={new Secret("multishopsecret".Sha256())},
                 AllowedScopes={ "CatalogFullPermission", "CatalogReadPermission", "BasketFullPermission", 
                                 "CommentFullPermission", "PaymentFullPermission", "ImageFullPermission", 
@@ -89,7 +89,7 @@ namespace MultiShopWithMicroservice.IdentityServer
             {
                 ClientId="MultiShopAdminId",
                 ClientName="Multi Shop Admin User",
-                AllowedGrantTypes=GrantTypes.ClientCredentials,
+                AllowedGrantTypes=GrantTypes.ResourceOwnerPassword,
                 ClientSecrets={new Secret("multishopsecret".Sha256())},
                 AllowedScopes={ "CatalogFullPermission", "CatalogReadPermission", "DiscountFullPermission", 
                                 "OrderFullPermission", "CargoFullPermission", "BasketFullPermission",
