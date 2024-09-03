@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
+using MultiShopWithMicroservice.Catalog.Dtos.AboutDtos;
+using MultiShopWithMicroservice.Catalog.Dtos.BrandDtos;
 using MultiShopWithMicroservice.Catalog.Dtos.CategoryDtos;
 using MultiShopWithMicroservice.Catalog.Dtos.FeatureDtos;
 using MultiShopWithMicroservice.Catalog.Dtos.FeatureSliderDtos;
+using MultiShopWithMicroservice.Catalog.Dtos.OfferDiscountDtos;
 using MultiShopWithMicroservice.Catalog.Dtos.ProductDetailDtos;
 using MultiShopWithMicroservice.Catalog.Dtos.ProductDtos;
 using MultiShopWithMicroservice.Catalog.Dtos.ProductImageDtos;
@@ -49,6 +52,23 @@ namespace MultiShopWithMicroservice.Catalog.Mapping
             CreateMap<Feature, CreateFeatureDto>().ReverseMap();
             CreateMap<Feature, UpdateFeatureDto>().ReverseMap();
             CreateMap<Feature, GetByIdFeatureDto>().ReverseMap();
+
+
+            CreateMap<OfferDiscount, ResultOfferDiscountDto>().ReverseMap();
+            CreateMap<OfferDiscount, CreateOfferDiscountDto>().ReverseMap();
+            CreateMap<OfferDiscount, UpdateOfferDiscountDto>().ReverseMap();
+            CreateMap<OfferDiscount, GetByIdOfferDiscountDto>().ReverseMap();
+
+
+            CreateMap<Brand, ResultBrandDto>().ReverseMap();
+            CreateMap<Brand, CreateBrandDto>().ReverseMap();
+            CreateMap<Brand, UpdateBrandDto>().ReverseMap();
+            CreateMap<Brand, GetByIdBrandDto>().ReverseMap();
+
+            CreateMap<About, ResultAboutDto>().ReverseMap();
+            CreateMap<About, CreateAboutDto>().ReverseMap();
+            CreateMap<About, UpdateAboutDto>().ReverseMap();
+            CreateMap<About, GetByIdAboutDto>().ReverseMap();
         }
     }
 }
