@@ -4,8 +4,9 @@ namespace MultiShopWithMicroservice.WebUI.Controllers
 {
     public class ProductListController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(string id)
         {
+            ViewBag.categoryId = id;
             return View();
         }
 
