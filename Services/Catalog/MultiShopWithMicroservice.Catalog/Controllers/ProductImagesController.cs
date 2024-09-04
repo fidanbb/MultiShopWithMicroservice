@@ -6,7 +6,7 @@ using MultiShopWithMicroservice.Catalog.Services.ProductImageServices;
 
 namespace MultiShopWithMicroservice.Catalog.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductImagesController : ControllerBase
@@ -48,10 +48,11 @@ namespace MultiShopWithMicroservice.Catalog.Controllers
             return Ok(await _productImageService.GetByIdProductImageAsync(id));
         }
 
-        [HttpGet("GetProductImageByProductId/{id}")]
-        public async Task<IActionResult> GetProductImageByProductId(string id)
+
+        [HttpGet("GetImagesByProductID/{id}")]
+        public async Task<IActionResult> GetPictureByProductID(string id)
         {
-            var values = await _productImageService.GetByProductIdProductImageAsync(id);
+            var values = await _productImageService.GetImagesByProductId(id);
             return Ok(values);
         }
 

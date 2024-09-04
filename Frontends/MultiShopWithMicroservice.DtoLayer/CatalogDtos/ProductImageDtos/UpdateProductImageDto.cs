@@ -1,4 +1,4 @@
-﻿namespace MultiShopWithMicroservice.Catalog.Dtos.ProductImageDtos
+﻿namespace MultiShopWithMicroservice.DtoLayer.CatalogDtos.ProductImageDtos
 {
     public class UpdateProductImageDto
     {

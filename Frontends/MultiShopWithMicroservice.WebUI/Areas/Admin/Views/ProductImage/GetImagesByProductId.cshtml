@@ -1,7 +1,6 @@
-﻿@model List<ResultBrandDto>
-
+﻿@model List<ResultProductImageDto>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "GetImagesByProductId";
     Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
 }
 
@@ -10,7 +9,7 @@
         <div class="chart-box">
 
             <div id="example_filter" class="dataTables_filter pull-right">
-                <input class="form-control" id="placeholderInput" placeholder="Search" type="text">
+                <input class="form-control" id="placeholderInput" placeholder="Ara" type="text">
             </div>
             <table class="table table-responsive">
                 @{
@@ -20,8 +19,7 @@
                     <tr>
                         <th class="sortable">#</th>
                         <th class="sortable">Image</th>
-                        <th class="sortable">Brand Name</th>
-                        <th class="sortable">Operations</th>
+                        <th class="sortable">Opeartions</th>
 
                     </tr>
                 </thead>
@@ -32,32 +30,30 @@
                     <tr>
                         <td class="text-truncate">@count</td>
                         <td class="text-truncate"><img src="@item.ImageUrl" style="width:75px;height:75px;border-radius:50%" /></td>
-                        <td class="text-truncate">@item.BrandName</td>
 
 
                         <td class="text-truncate">
-                          <button type="button" class="btn btn-outline btn-rounded btn-danger" data-toggle="modal" data-target="#modalDeleteBrand-@item.BrandId">
+                            <button type="button" class="btn btn-outline btn-rounded btn-danger" data-toggle="modal" data-target="#modalDeleteProductImage-@item.ProductImageID">
                                 <i class="fa fa-eraser"></i>
-                                
                             </button>
-                            <a class="btn btn-outline btn-rounded btn-info" asp-action="UpdateBrand" asp-route-id="@item.BrandId"><i class="fa fa-edit"></i> </a>
+
+                            <a class="btn btn-outline btn-rounded btn-info" asp-action="UpdateProductImage" asp-route-id="@item.ProductImageID"><i class="fa fa-edit"></i> </a>
                         </td>
                     </tr>
-
-                    <div class="modal" tabindex="-1" role="dialog" id="modalDeleteBrand-@item.BrandId">
+                    <div class="modal" tabindex="-1" role="dialog" id="modalDeleteProductImage-@item.ProductImageID">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title"><b>Carefull !!</b> Brand Will Be Deleted</h5>
+                                    <h5 class="modal-title"><b>Attention !!</b> Product Image Will be Deleted</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <p>@item.BrandName</p>
+                                    <p>@item.ProductImageID</p>
                                 </div>
                                 <div class="modal-footer">
-                                    <a class="btn btn-danger" asp-route-id="@item.BrandId" asp-controller="Brand" asp-action="DeleteBrand" asp-area="Admin" data-id="@item.BrandId">Delete</a>
+                                    <a class="btn btn-danger" asp-route-id="@item.ProductImageID" asp-controller="ProductImage" asp-action="DeleteProductImage" asp-area="Admin" data-id="@item.ProductId">Delete</a>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
@@ -66,7 +62,7 @@
                 }
 
             </table>
-            <a class="btn btn-outline btn-rounded btn-primary" asp-action="CreateBrand" asp-controller="Brand">New Brand Entry</a>
+            <a class="btn btn-outline btn-rounded btn-primary" asp-action="CreateProductImage" asp-controller="ProductImage" asp-area="Admin">Add New Image</a>
         </div>
     </div>
 </div>

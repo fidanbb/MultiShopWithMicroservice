@@ -1,9 +1,19 @@
+using NToastNotify;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddHttpClient();
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+     .AddNToastNotifyToastr(new ToastrOptions()
+     {
+         ProgressBar = true,
+         PositionClass = ToastPositions.TopRight,
+         TimeOut = 5000
+     })
+    .AddRazorRuntimeCompilation();
 
 var app = builder.Build();
 

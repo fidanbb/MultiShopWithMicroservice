@@ -10,8 +10,9 @@ namespace MultiShopWithMicroservice.WebUI.Controllers
             return View();
         }
 
-        public IActionResult ProductDetail()
+        public IActionResult ProductDetail(string id)
         {
+            ViewBag.productId = id;
             return View();
         }
     }

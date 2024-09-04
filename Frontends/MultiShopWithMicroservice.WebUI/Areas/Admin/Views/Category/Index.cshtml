@@ -9,41 +9,64 @@
 
 <section class="content container-fluid">
     <div class="row">
-
         <div class="col-md-12">
             <div class="chart-box">
-               
-                <div class="bs-example" data-example-id="bordered-table">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Category Name</th>
-                                <th>Delete</th>
-                                <th>Update</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach(var item in Model){
-                                count++;
-                                <tr>
-                                    <th>@count</th>
-                                    <td>@item.CategoryName</td>
-                                    <td><a href="/Admin/Category/DeleteCategory/@item.CategoryID" class="btn btn-danger">Delete</a></td>
-                                    <td><a href="/Admin/Category/UpdateCategory/@item.CategoryID" class="btn btn-success">Update</a></td>
-                                </tr>
-                            }
-                            
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <th class="sortable">#</th>
+                            <th class="sortable">Image</th>
+                            <th class="sortable">Category Name</th>
+                            <th>Operations</th>
+                        </tr>
+                    </thead>
+                    @foreach (var item in Model)
+                    {
+                        count++;
+                        <tr>
+                            <td class="text-truncate">@count</td>
+                            <td class="text-truncate">
+                                <img src="@item.ImageUrl" width="80px" />
+                            </td>
+                            <td class="text-truncate">@item.CategoryName</td>
                            
-                        </tbody>
-                    </table>
-                    <br />
-                    <a href="/Admin/Category/CreateCategory/" class="btn btn-primary">New Category Entry</a>
+                          
+                            <td class="text-truncate">
 
-                </div>
+                                <button type="button" class="btn btn-outline btn-rounded btn-danger" data-toggle="modal" data-target="#modalDeleteCategory-@item.CategoryID">
+                                    <i class="fa fa-eraser"></i>
+                                    
+                                </button>
+
+                                <a asp-route-id="@item.CategoryID" asp-controller="Category" asp-action="UpdateCategory" asp-area="Admin" data-id="@item.CategoryID" class="btn  btn-outline btn-rounded btn-sm btn-info"><i class="fa fa-edit"></i></a>
+                            </td>
+                        </tr>
+                        <div class="modal" tabindex="-1" role="dialog" id="modalDeleteCategory-@item.CategoryID">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title"><b>Attention !!</b> Category Will Be Deleted </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>@item.CategoryName</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a class="btn btn-danger" asp-route-id="@item.CategoryID" asp-controller="Category" asp-action="DeleteCategory" asp-area="Admin" data-id="@item.CategoryID">Delete</a>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+
+                </table>
+                <a class="btn btn-sm btn-primary" asp-controller="Category" asp-action="CreateCategory" asp-area="Admin">Yeni Kategori Ekle</a>
             </div>
         </div>
-
     </div>
 </section>
 
