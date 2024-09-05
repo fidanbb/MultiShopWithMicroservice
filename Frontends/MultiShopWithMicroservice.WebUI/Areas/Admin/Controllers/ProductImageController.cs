@@ -41,9 +41,19 @@ namespace MultiShopWithMicroservice.WebUI.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreateProductImage()
+        public async Task<IActionResult> CreateProductImage()
         {
-            PictureProductList();
+            var client = _httpClientFactory.CreateClient();
+            var responseMessage = await client.GetAsync("https://localhost:7070/api/Products");
+            var jsonData = await responseMessage.Content.ReadAsStringAsync();
+            var value = JsonConvert.DeserializeObject<List<ResultProductDto>>(jsonData);
+            List<SelectListItem> productValue = (from x in value
+                                                 select new SelectListItem
+                                                 {
+                                                     Text = x.ProductName,
+                                                     Value = x.ProductId.ToString()
+                                                 }).ToList();
+            ViewBag.ProductList = productValue;
             ProductImageViewbagList();
 
             return View();
