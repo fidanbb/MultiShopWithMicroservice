@@ -1,0 +1,103 @@
+﻿@model List<ResultCommentDto>
+
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+<section class="content container-fluid">
+<div class="row">
+    <div class="col-md-12">
+        <div class="chart-box">
+
+          
+            <table class="table table-responsive">
+                @{
+                    int count = 0;
+                }
+                <thead>
+                    <tr>
+                        <th class="sortable">#</th>
+                        <th class="sortable">User</th>
+                        <th class="sortable">Comment</th>
+                        <th class="sortable">Status</th>
+                        <th class="sortable">Operations</th>
+
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    count++;
+
+                    <tr>
+                        <td class="text-truncate">@count</td>
+                        <td class="text-truncate">@item.NameSurname</td>
+                            <td class="text-truncate">
+                                <button type="button" class="btn btn-outline btn-rounded btn-warning" data-toggle="modal" data-target="#modalComment-@item.UserCommentId">
+                                    Comment Content
+                                </button>
+                               
+                                <div class="modal" tabindex="-1" role="dialog" id="modalComment-@item.UserCommentId">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title"><b>Comment</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                
+                                                <p>@item.Comment</p>
+                                                <p>@item.CreatedDate.ToShortDateString()</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        <td class="text-truncate">
+                            <span class="lable-tag @(item.Status ? "tag-success" : "tag-warning") "> @(item.Status ? "Active" : "Passive")</span>
+                         </td>
+
+                        <td class="text-truncate">
+                            <a class="btn btn-outline btn-rounded @(item.Status ? "btn-warning" : "btn-success") " asp-route-id="@item.UserCommentId" asp-controller="Comment" asp-action="ChangeStatus" asp-area="Admin"><i class="fa  @(item.Status ? "fa-toggle-off" : "fa-toggle-on")"></i></a>
+
+                            <button type="button" class="btn btn-outline btn-rounded btn-danger" data-toggle="modal" data-target="#modalDeleteComment-@item.UserCommentId">
+                                <i class="fa fa-eraser"></i>
+                            </button>                            
+                            <a class="btn btn-outline btn-rounded btn-info" asp-action="UpdateComment" asp-route-id="@item.UserCommentId"><i class="fa fa-edit"></i> </a>
+                        </td>
+                    </tr>
+
+                    <div class="modal" tabindex="-1" role="dialog" id="modalDeleteComment-@item.UserCommentId">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"><b>Attention !!</b> Comment will be deleted</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>@item.NameSurname</p>
+                                    <p>@item.Comment</p>
+                                </div>
+                                <div class="modal-footer">
+                                   
+                                    <a class="btn btn-danger" asp-route-id="@item.UserCommentId" asp-controller="Comment" asp-action="DeleteComment" asp-area="Admin" data-id="@item.UserCommentId">Delete</a>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </table>
+
+        </div>
+    </div>
+</div>
+</section>
