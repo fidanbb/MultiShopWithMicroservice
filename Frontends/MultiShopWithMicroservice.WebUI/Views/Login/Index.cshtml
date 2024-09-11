@@ -1,0 +1,65 @@
+﻿@model LoginDto
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Multishop Login Form</title>
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link href="https://cdni.iconscout.com/illustration/premium/thumb/registration-page-illustration-download-in-svg-png-gif-file-formats--word-logo-hello-user-account-setup-new-sign-up-welcome-greetings-pack-people-illustrations-8111289.png" rel="icon">
+
+	<!-- Font-->
+	<link rel="stylesheet" type="text/css" href="~/colorlib-regform-30/css/opensans-font.css">
+	<link rel="stylesheet" type="text/css" href="~/colorlib-regform-30/fonts/line-awesome/css/line-awesome.min.css">
+	<!-- Jquery -->
+	<link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+	<!-- Main Style Css -->
+	<link rel="stylesheet" href="~/colorlib-regform-30/css/style.css" />
+</head>
+<body class="form-v4">
+	<div class="page-content">
+		<div class="form-v4-content">
+			<div class="form-left">
+				<h2>Multishop Ecommerce</h2>
+				<p class="text-1">You can log in to the system to carry out e-commerce transactions and be informed about discounted products and opportunities through our Multishop project.</p>
+				<div class="form-left-last">
+					<a class="button" style="text-decoration:none;color:white;" href="/Register/Index">Don't have an account? Sign Up</a>
+				</div>
+			</div>
+			<form class="form-detail" method="post">
+				<h2>MultiShop Login Form</h2>
+			
+					<div class="form-row form-row-1">
+						<label for="first_name">Username</label>
+						<input type="text" asp-for="UserName" class="input-text" required>
+					</div>
+
+		
+
+			
+					<div class="form-row form-row-1">
+						<label for="password">Password</label>
+						<input type="password" asp-for="Password" class="input-text" required>
+					</div>
+
+
+				<p class="text-danger" style="color:red!important;">@Html.ValidationSummary()</p>
+
+
+
+				<div class="form-row-last">
+					<input type="submit" name="register" class="register" value="Login">
+				</div>
+			</form>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

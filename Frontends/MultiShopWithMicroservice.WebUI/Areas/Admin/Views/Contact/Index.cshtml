@@ -1,0 +1,105 @@
+﻿@model List<ResultContactDto>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="chart-box">
+
+        
+            <table class="table table-responsive">
+                @{
+                    int count = 0;
+                }
+                <thead>
+                    <tr>
+                        <th class="sortable">#</th>
+                        <th class="sortable">Sender</th>
+                        <th class="sortable">Email</th>
+                        <th class="sortable">Subject</th>
+                        <th class="sortable">Message</th>
+                        <th class="sortable">Date</th>
+                        <th class="sortable">IsRead</th>
+                        <th class="sortable">Operations</th>
+
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    count++;
+
+                    <tr>
+                        <td class="text-truncate">@count</td>
+                        <td class="text-truncate">@item.NameSurname</td>
+                        <td class="text-truncate">@item.Email</td>
+                        <td class="text-truncate">@item.Subject</td>
+                        <td class="text-truncate">@(item.Message.Length > 50 ? item.Message.Substring(0, 50) + "..." : item.Message)</td>
+
+                        <td class="text-truncate">@item.SendDate.ToShortDateString()</td>
+                        <td class="text-truncate">
+                            <span class="lable-tag @(item.IsRead ? "tag-success" : "tag-warning") "> @(item.IsRead ? "Read" : "UnRead")</span>
+                        </td>
+                        <td class="text-truncate">
+                            <a class="btn btn-outline btn-rounded @(item.IsRead ? "btn-warning" : "btn-success") " asp-route-id="@item.ContactId" asp-controller="Contact" asp-action="ChangeIsRead" asp-area="Admin">
+                                <i class="fa  @(item.IsRead ? "fa fa-envelope" : "fa fa-envelope-open")"></i></a>
+
+                            <button type="button" class="btn btn-outline btn-rounded btn-info" data-toggle="modal" data-target="#modalShowMessage-@item.ContactId">
+                                <i class="fa fa-comment"></i>
+                            </button>
+                            <button type="button" class="btn btn-outline btn-rounded btn-danger" data-toggle="modal" data-target="#modalDeleteContact-@item.ContactId">
+                                <i class="fa fa-eraser"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <div class="modal" tabindex="-1" role="dialog" id="modalShowMessage-@item.ContactId">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"><b>Conact Message!</b>You can see whole message here</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p><strong>Sender:</strong>  @item.NameSurname</p>
+                                    <p> <strong>Message:</strong> @item.Message</p>
+                                </div>
+                                <div class="modal-footer">
+
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal" tabindex="-1" role="dialog" id="modalDeleteContact-@item.ContactId">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"><b>Attention !!</b> Contact will be deleted</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>@item.NameSurname</p>
+                                    <p>@item.Message</p>
+                                </div>
+                                <div class="modal-footer">
+
+                                    <a class="btn btn-danger" asp-route-id="@item.ContactId" asp-controller="Contact" asp-action="DeleteContact" asp-area="Admin" data-id="@item.ContactId">Delete</a>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </table>
+
+        </div>
+    </div>
+</div>

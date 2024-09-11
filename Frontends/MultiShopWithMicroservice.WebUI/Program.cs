@@ -1,11 +1,26 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using MultiShopWithMicroservice.WebUI.Services.Concrete;
+using MultiShopWithMicroservice.WebUI.Services.Interfaces;
 using NToastNotify;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddCookie(JwtBearerDefaults.AuthenticationScheme, opt =>
+{
+	opt.LoginPath = "/Login/Index";
+	opt.LogoutPath = "/Login/Logout";
+	opt.AccessDeniedPath = "/Pages/AccessDenied";
+	opt.Cookie.SameSite = SameSiteMode.Strict;
+	opt.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+	opt.Cookie.Name = "MultishopJwt";
+});
+
+// Add services to the container.
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient();
+builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddControllersWithViews()
      .AddNToastNotifyToastr(new ToastrOptions()
      {
@@ -29,7 +44,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

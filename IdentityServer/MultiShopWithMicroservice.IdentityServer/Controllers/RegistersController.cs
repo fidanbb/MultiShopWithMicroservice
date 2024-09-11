@@ -9,8 +9,7 @@ using static IdentityServer4.IdentityServerConstants;
 
 namespace MultiShopWithMicroservice.IdentityServer.Controllers
 {
-    //[AllowAnonymous]
-    [Authorize(LocalApi.PolicyName)]
+    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class RegistersController : ControllerBase

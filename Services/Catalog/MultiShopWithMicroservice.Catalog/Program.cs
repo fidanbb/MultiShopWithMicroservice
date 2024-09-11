@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using MultiShopWithMicroservice.Catalog.Services.AboutServices;
 using MultiShopWithMicroservice.Catalog.Services.BrandServices;
 using MultiShopWithMicroservice.Catalog.Services.CategoryServices;
+using MultiShopWithMicroservice.Catalog.Services.ContactServices;
 using MultiShopWithMicroservice.Catalog.Services.FeatureServices;
 using MultiShopWithMicroservice.Catalog.Services.FeatureSliderServices;
 using MultiShopWithMicroservice.Catalog.Services.OfferDiscountServices;
@@ -38,6 +39,7 @@ builder.Services.AddScoped<IFeatureService, FeatureService>();
 builder.Services.AddScoped<IOfferDiscountService, OfferDiscountService>();
 builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IAboutService, AboutService>();
+builder.Services.AddScoped<IContactService, ContactService>();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettings"));
