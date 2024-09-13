@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using MultiShopWithMicroservice.WebUI.Services.Concrete;
 using MultiShopWithMicroservice.WebUI.Services.Interfaces;
+using MultiShopWithMicroservice.WebUI.Settings;
 using NToastNotify;
 
 
@@ -17,10 +19,22 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddCo
 	opt.Cookie.Name = "MultishopJwt";
 });
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opt =>
+{
+	opt.LoginPath = "/Login/Index";
+	opt.ExpireTimeSpan = TimeSpan.FromDays(5);
+	opt.Cookie.Name = "MultishopCookie";
+	opt.SlidingExpiration = true;
+});
+
+
 // Add services to the container.
 builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddHttpClient();
+
 builder.Services.AddScoped<ILoginService, LoginService>();
+builder.Services.AddHttpClient<IIdentityService, IdentityService>();
 builder.Services.AddControllersWithViews()
      .AddNToastNotifyToastr(new ToastrOptions()
      {
@@ -29,6 +43,8 @@ builder.Services.AddControllersWithViews()
          TimeOut = 5000
      })
     .AddRazorRuntimeCompilation();
+
+builder.Services.Configure<ClientSettings>(builder.Configuration.GetSection(nameof(ClientSettings)));
 
 var app = builder.Build();
 

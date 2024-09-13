@@ -1,24 +1,20 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MultiShopWithMicroservice.DtoLayer.IdentityDtos;
-using MultiShopWithMicroservice.WebUI.Models;
 using MultiShopWithMicroservice.WebUI.Services.Interfaces;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text.Json; 
 
 namespace MultiShopWithMicroservice.WebUI.Controllers
 {
+	[AllowAnonymous]
 	public class LoginController : Controller
 	{
 		private readonly HttpClient _client;
-		private readonly ILoginService _loginService;
-		public LoginController(HttpClient client, ILoginService loginService)
+		private readonly IIdentityService _identityService;
+		public LoginController(HttpClient client, IIdentityService identityService)
 		{
 			client.BaseAddress = new Uri("https://localhost:5001/api/");
 			_client = client;
-			_loginService = loginService;
+			_identityService = identityService;
 		}
 
 		[HttpGet]
@@ -28,45 +24,19 @@ namespace MultiShopWithMicroservice.WebUI.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Index(LoginDto loginDto)
+		public async Task<IActionResult> Index(LoginDto loginDto,string? returnUrl)
 		{
-			var result = await _client.PostAsJsonAsync("logins", loginDto);
-
-			if (result.IsSuccessStatusCode)
+			var result = await _identityService.SignIn(loginDto);
+			if (result == true)
 			{
-				//var id = _loginService.GetUserId;
-
-				var tokenModel = JsonSerializer.Deserialize<JwtResponseModel>(await result.Content.ReadAsStringAsync(), new JsonSerializerOptions
+				if (returnUrl != null)
 				{
-					PropertyNameCaseInsensitive = true,
-				});
-
-
-				if (tokenModel != null)
-				{
-					JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
-
-					var token = handler.ReadJwtToken(tokenModel.Token);
-					var claims=token.Claims.ToList();
-
-					if (tokenModel.Token != null)
-					{
-						claims.Add(new Claim("multishoptoken", tokenModel.Token));
-
-						var claimsIdentity=new ClaimsIdentity(claims, JwtBearerDefaults.AuthenticationScheme);
-
-						var authProps = new AuthenticationProperties
-						{
-							ExpiresUtc = tokenModel.ExpireDate,
-							IsPersistent = true,
-						};
-
-						await HttpContext.SignInAsync(JwtBearerDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProps);
-						return RedirectToAction("Index", "Default");
-					}
+					return Redirect(returnUrl);
 				}
-				return View();
+				return RedirectToAction("Index", "Default");
 			}
+
+
 
 			ModelState.AddModelError("", "Username or Password is wrong!");
 			return View();

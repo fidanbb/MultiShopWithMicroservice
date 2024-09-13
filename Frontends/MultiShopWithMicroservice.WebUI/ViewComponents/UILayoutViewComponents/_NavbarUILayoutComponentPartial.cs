@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MultiShopWithMicroservice.DtoLayer.CatalogDtos.CategoryDtos;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Net.Http.Headers;
 
 namespace MultiShopWithMicroservice.WebUI.ViewComponents.UILayoutViewComponents
 {
@@ -13,8 +15,11 @@ namespace MultiShopWithMicroservice.WebUI.ViewComponents.UILayoutViewComponents
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7070/api/Categories");
+			
+
+			var client = _httpClientFactory.CreateClient();
+
+			var responseMessage = await client.GetAsync("https://localhost:7070/api/Categories");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
