@@ -24,7 +24,7 @@ namespace MultiShopWithMicroservice.WebUI.Areas.Admin.Controllers
             CommentViewbagList();
 
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7182/api/Comments");
+            var responseMessage = await client.GetAsync("https://localhost:7075/api/Comments");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
@@ -39,7 +39,7 @@ namespace MultiShopWithMicroservice.WebUI.Areas.Admin.Controllers
             CommentViewbagList();
 
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7182/api/Comments/CommentListByProductId?id=" + id);
+            var responseMessage = await client.GetAsync("https://localhost:7075/api/Comments/CommentListByProductId?id=" + id);
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
@@ -53,7 +53,7 @@ namespace MultiShopWithMicroservice.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> ChangeStatus(int id)
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7182/api/Comments/ChangeStatus/"+id );
+            var responseMessage = await client.GetAsync("https://localhost:7075/api/Comments/ChangeStatus/" + id );
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index", "Comment", new { Area = "Admin" });
@@ -64,7 +64,7 @@ namespace MultiShopWithMicroservice.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteComment(string id)
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.DeleteAsync("https://localhost:7182/api/Comments?id=" + id);
+            var responseMessage = await client.DeleteAsync("https://localhost:7075/api/Comments?id=" + id);
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index", "Comment", new { area = "Admin" });
@@ -77,7 +77,7 @@ namespace MultiShopWithMicroservice.WebUI.Areas.Admin.Controllers
         {
             CommentViewbagList();
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7182/api/Comments/" + id);
+            var responseMessage = await client.GetAsync("https://localhost:7075/api/Comments/" + id);
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
@@ -92,7 +92,7 @@ namespace MultiShopWithMicroservice.WebUI.Areas.Admin.Controllers
             var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(updateCommentDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PutAsync("https://localhost:7182/api/Comments/", stringContent);
+            var responseMessage = await client.PutAsync("https://localhost:7075/api/Comments/", stringContent);
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index", "Comment", new { area = "Admin" });

@@ -32,13 +32,13 @@ namespace MultiShopWithMicroservice.WebUI.Controllers
             createCommentDto.CreatedDate = DateTime.Now;
             createCommentDto.Status = false;
             createCommentDto.ImageUrl = "https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg";
-            //var client = new HttpClient();
-            //await client.PostAsJsonAsync("https://localhost:7182/api/Comments", createCommentDto);
+			//var client = new HttpClient();
+			//await client.PostAsJsonAsync("https://localhost:7075/api/Comments", createCommentDto);
 
-            var client = _httpClientFactory.CreateClient();
+			var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(createCommentDto);
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PostAsync("https://localhost:7182/api/Comments", content);
+            var responseMessage = await client.PostAsync("https://localhost:7075/api/Comments", content);
 
             if (responseMessage.IsSuccessStatusCode)
             {

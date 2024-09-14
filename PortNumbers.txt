@@ -5,3 +5,4 @@ Discount - 7071,5101
 Order - 7072,5102
 Cargo - 7073, 5103
 Basket - 7074, 5104
+Comment - 7075, 5105

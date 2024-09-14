@@ -62,7 +62,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiShopWithMicroservice.D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Comment", "Comment", "{EB6769B1-6890-4D30-A195-B5765849A33C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiShopWithMicroservice.Comment", "Comment\MultiShopWithMicroservice.Comment\MultiShopWithMicroservice.Comment.csproj", "{222E3A0F-D749-40BC-94F5-BEF2CDA16443}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiShopWithMicroservice.Comment", "Comment\MultiShopWithMicroservice.Comment\MultiShopWithMicroservice.Comment.csproj", "{222E3A0F-D749-40BC-94F5-BEF2CDA16443}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateway", "ApiGateway", "{0736FDB4-C992-43C1-8D71-13A430C156F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiShopWithMicroservice.OcelotGateway", "ApiGateway\MultiShopWithMicroservice.OcelotGateway\MultiShopWithMicroservice.OcelotGateway.csproj", "{FEFAD882-EBC8-43D9-854C-1EBFE0E5290D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Payment", "Payment", "{0AB16524-C710-4A71-9C8C-B2252733AFC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiShopWithMicroservice.Payment", "Payment\MultiShopWithMicroservice.Payment\MultiShopWithMicroservice.Payment.csproj", "{744838BD-A5D7-4865-BB22-AAAE5E5B0590}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -134,6 +142,14 @@ Global
 		{222E3A0F-D749-40BC-94F5-BEF2CDA16443}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{222E3A0F-D749-40BC-94F5-BEF2CDA16443}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{222E3A0F-D749-40BC-94F5-BEF2CDA16443}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEFAD882-EBC8-43D9-854C-1EBFE0E5290D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEFAD882-EBC8-43D9-854C-1EBFE0E5290D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEFAD882-EBC8-43D9-854C-1EBFE0E5290D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEFAD882-EBC8-43D9-854C-1EBFE0E5290D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{744838BD-A5D7-4865-BB22-AAAE5E5B0590}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{744838BD-A5D7-4865-BB22-AAAE5E5B0590}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{744838BD-A5D7-4865-BB22-AAAE5E5B0590}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{744838BD-A5D7-4865-BB22-AAAE5E5B0590}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -164,6 +180,9 @@ Global
 		{E2BEE832-AE44-4C3A-9019-611DAB628CAC} = {261C9C8F-F89F-4BA3-AF1D-5A1660BD5BE8}
 		{EB6769B1-6890-4D30-A195-B5765849A33C} = {FFDA2E7C-31CE-4F30-AAE9-C55FA965E294}
 		{222E3A0F-D749-40BC-94F5-BEF2CDA16443} = {EB6769B1-6890-4D30-A195-B5765849A33C}
+		{FEFAD882-EBC8-43D9-854C-1EBFE0E5290D} = {0736FDB4-C992-43C1-8D71-13A430C156F7}
+		{0AB16524-C710-4A71-9C8C-B2252733AFC1} = {FFDA2E7C-31CE-4F30-AAE9-C55FA965E294}
+		{744838BD-A5D7-4865-BB22-AAAE5E5B0590} = {0AB16524-C710-4A71-9C8C-B2252733AFC1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {83E610B5-8540-488C-B3E3-BEC49075AC95}
