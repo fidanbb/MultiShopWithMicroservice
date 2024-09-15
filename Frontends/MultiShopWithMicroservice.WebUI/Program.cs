@@ -45,6 +45,8 @@ builder.Services.AddControllersWithViews()
     .AddRazorRuntimeCompilation();
 
 builder.Services.Configure<ClientSettings>(builder.Configuration.GetSection(nameof(ClientSettings)));
+builder.Services.Configure<ServiceApiSettings>(builder.Configuration.GetSection("ServiceApiSettings"));
+
 
 var app = builder.Build();
 
