@@ -1,5 +1,4 @@
 ﻿using IdentityModel.Client;
-using IdentityServer4.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;

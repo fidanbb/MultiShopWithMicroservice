@@ -1,10 +1,12 @@
-﻿@model List<ResultCategoryDto>
+﻿﻿@using X.Web.PagedList
+
+@model X.PagedList.IPagedList<ResultCategoryDto>
 
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
-    int count = 0;
+    int count = ViewBag.PageSize;
 }
 
 <section class="content container-fluid">
@@ -64,9 +66,21 @@
                     }
 
                 </table>
-                <a class="btn btn-sm btn-primary" asp-controller="Category" asp-action="CreateCategory" asp-area="Admin">Yeni Kategori Ekle</a>
+                <a class="btn btn-sm btn-primary" asp-controller="Category" asp-action="CreateCategory" asp-area="Admin">Add New Category</a>
+            </div>
+
+
+            <div class="pagination">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }),
+                         new PagedListRenderOptions
+                {
+                    LiElementClasses = new string[] { "page-item" },
+                    PageClasses = new string[] { "page-link" },
+                    Display = PagedListDisplayMode.IfNeeded
+                })
             </div>
         </div>
     </div>
+    
 </section>
 

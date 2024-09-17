@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using MultiShopWithMicroservice.WebUI.Extensions;
+using MultiShopWithMicroservice.WebUI.Handlers;
+using MultiShopWithMicroservice.WebUI.Services.CatalogServices.CategoryServices;
 using MultiShopWithMicroservice.WebUI.Services.Concrete;
 using MultiShopWithMicroservice.WebUI.Services.Interfaces;
 using MultiShopWithMicroservice.WebUI.Settings;
@@ -30,11 +33,9 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 // Add services to the container.
 builder.Services.AddHttpContextAccessor();
-
 builder.Services.AddHttpClient();
 
-builder.Services.AddScoped<ILoginService, LoginService>();
-builder.Services.AddHttpClient<IIdentityService, IdentityService>();
+//builder.Services.AddHttpClient<IIdentityService, IdentityService>();
 builder.Services.AddControllersWithViews()
      .AddNToastNotifyToastr(new ToastrOptions()
      {
@@ -47,6 +48,23 @@ builder.Services.AddControllersWithViews()
 builder.Services.Configure<ClientSettings>(builder.Configuration.GetSection(nameof(ClientSettings)));
 builder.Services.Configure<ServiceApiSettings>(builder.Configuration.GetSection("ServiceApiSettings"));
 
+
+builder.Services.AddScoped<ResourceOwnerPasswordTokenHandler>();
+builder.Services.AddScoped<ClientCredentialTokenHandler>();
+builder.Services.AddScoped<ILoginService, LoginService>();
+builder.Services.AddAccessTokenManagement();
+builder.Services.AddHttpClientServices(builder.Configuration);
+
+//var values = builder.Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
+//builder.Services.AddHttpClient<IUserService, UserService>(opt =>
+//{
+//    opt.BaseAddress = new Uri(values.IdentityServerUrl);
+//}).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+
+//builder.Services.AddHttpClient<ICategoryService, CategoryService>(opt =>
+//{
+//    opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Catalog.Path}");
+//});
 
 var app = builder.Build();
 
