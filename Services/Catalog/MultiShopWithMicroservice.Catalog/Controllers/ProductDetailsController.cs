@@ -52,6 +52,7 @@ namespace MultiShopWithMicroservice.Catalog.Controllers
         public async Task<IActionResult> GetProductDetailByProductId(string id)
         {
             var values = await _productDetailService.GetByProductIdProductDetailAsync(id);
+
             return Ok(values);
         }
 

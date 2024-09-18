@@ -1,10 +1,13 @@
-﻿using MultiShopWithMicroservice.WebUI.Handlers;
+﻿using MultiShopWithMicroservice.WebUI.Areas.Admin.Controllers;
+using MultiShopWithMicroservice.WebUI.Handlers;
 using MultiShopWithMicroservice.WebUI.Services.CatalogServices.AboutServices;
 using MultiShopWithMicroservice.WebUI.Services.CatalogServices.BrandServices;
 using MultiShopWithMicroservice.WebUI.Services.CatalogServices.CategoryServices;
 using MultiShopWithMicroservice.WebUI.Services.CatalogServices.FeatureServices;
 using MultiShopWithMicroservice.WebUI.Services.CatalogServices.FeatureSliderServices;
 using MultiShopWithMicroservice.WebUI.Services.CatalogServices.OfferDiscountServices;
+using MultiShopWithMicroservice.WebUI.Services.CatalogServices.ProductDetailServices;
+using MultiShopWithMicroservice.WebUI.Services.CatalogServices.ProductImageServices;
 using MultiShopWithMicroservice.WebUI.Services.CatalogServices.ProductServices;
 using MultiShopWithMicroservice.WebUI.Services.CatalogServices.SpecialOfferServices;
 using MultiShopWithMicroservice.WebUI.Services.Concrete;
@@ -63,6 +66,16 @@ namespace MultiShopWithMicroservice.WebUI.Extensions
             }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
 
             services.AddHttpClient<IAboutService, AboutService>(opt =>
+            {
+                opt.BaseAddress = new Uri(serviceApiSettings.OcelotUrl + serviceApiSettings.Catalog.Path);
+            }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
+
+            services.AddHttpClient<IProductDetailService, ProductDetailService>(opt =>
+            {
+                opt.BaseAddress = new Uri(serviceApiSettings.OcelotUrl + serviceApiSettings.Catalog.Path);
+            }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
+
+            services.AddHttpClient<IProductImageService, ProductImageService>(opt =>
             {
                 opt.BaseAddress = new Uri(serviceApiSettings.OcelotUrl + serviceApiSettings.Catalog.Path);
             }).AddHttpMessageHandler<ClientCredentialTokenHandler>();

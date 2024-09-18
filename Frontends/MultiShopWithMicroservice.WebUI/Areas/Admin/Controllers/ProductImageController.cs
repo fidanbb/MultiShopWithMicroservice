@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using MultiShopWithMicroservice.DtoLayer.CatalogDtos.ProductDtos;
 using MultiShopWithMicroservice.DtoLayer.CatalogDtos.ProductImageDtos;
 using MultiShopWithMicroservice.WebUI.ResultMessage;
+using MultiShopWithMicroservice.WebUI.Services.CatalogServices.ProductImageServices;
+using MultiShopWithMicroservice.WebUI.Services.CatalogServices.ProductServices;
 using Newtonsoft.Json;
 using NToastNotify;
 using System.Text;
@@ -15,45 +17,38 @@ namespace MultiShopWithMicroservice.WebUI.Areas.Admin.Controllers
     [AllowAnonymous]
     public class ProductImageController : Controller
     {
-        private readonly IHttpClientFactory _httpClientFactory;
         private readonly IToastNotification _toastNotification;
+        private readonly IProductImageService _productImageService;
+        private readonly IProductService _productService;
 
-        public ProductImageController(IHttpClientFactory httpClientFactory, IToastNotification toastNotification)
+
+        public ProductImageController(IToastNotification toastNotification, IProductImageService productImageService, IProductService productService)
         {
-            _httpClientFactory = httpClientFactory;
             _toastNotification = toastNotification;
+            _productImageService = productImageService;
+            _productService = productService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetImagesByProductId(string id)
         {
              ProductImageViewbagList();
-
-            var client = _httpClientFactory.CreateClient();
-            var response = await client.GetAsync("https://localhost:7070/api/ProductImages/GetImagesByProductID/"+id);
-            if (response.IsSuccessStatusCode)
-            {
-                var jsonData = await response.Content.ReadAsStringAsync();
-                var value = JsonConvert.DeserializeObject<List<ResultProductImageDto>>(jsonData);
-                return View(value);
-            }
-            return View();
+            var values = await _productImageService.GetImagesByProductId(id); 
+            
+            return View(values);
         }
-
+        
         [HttpGet]
         public async Task<IActionResult> CreateProductImage()
         {
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7070/api/Products");
-            var jsonData = await responseMessage.Content.ReadAsStringAsync();
-            var value = JsonConvert.DeserializeObject<List<ResultProductDto>>(jsonData);
-            List<SelectListItem> productValue = (from x in value
-                                                 select new SelectListItem
-                                                 {
-                                                     Text = x.ProductName,
-                                                     Value = x.ProductId.ToString()
-                                                 }).ToList();
-            ViewBag.ProductList = productValue;
+            var productList = await _productService.GetAllProductsAsync();
+            ViewBag.ProductList = (from x in productList
+                                   select new SelectListItem
+                                      {
+                                          Text = x.ProductName,
+                                          Value = x.ProductId
+                                      }).ToList();
+
             ProductImageViewbagList();
 
             return View();
@@ -63,7 +58,8 @@ namespace MultiShopWithMicroservice.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> CreateProductImage(CreateProductImageDto createProductImageDto)
         {
             PictureProductList();
-            var client = _httpClientFactory.CreateClient();
+
+            
 
             foreach (var file in createProductImageDto.MultiFile)
             {
@@ -76,15 +72,10 @@ namespace MultiShopWithMicroservice.WebUI.Areas.Admin.Controllers
                         await file.CopyToAsync(stream);
                     }
                     createProductImageDto.ImageUrl = $"/uploads/"+uniqueFileName;
-                    var jsonData = JsonConvert.SerializeObject(createProductImageDto);
-                    StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                    await _productImageService.CreateProductImageAsync(createProductImageDto);
                  
-
-                    var responseMessage = await client.PostAsync("https://localhost:7070/api/ProductImages", stringContent);
-                    if (responseMessage.IsSuccessStatusCode)
-                    {
-                        _toastNotification.AddSuccessToastMessage(NotifyMessage.ResultTitle.Add(createProductImageDto.ProductId), new ToastrOptions { Title = "Success" });
-                    }
+                    _toastNotification.AddSuccessToastMessage(NotifyMessage.ResultTitle.Add(createProductImageDto.ProductId), new ToastrOptions { Title = "Success" });
+                    
                 }
             }
             return RedirectToAction("Index", "Product", new { Area = "Admin" } );
@@ -93,14 +84,11 @@ namespace MultiShopWithMicroservice.WebUI.Areas.Admin.Controllers
 
         public async Task<IActionResult> DeleteProductImage(string id)
         {
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.DeleteAsync($"https://localhost:7070/api/ProductImages?id=" + id);
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                _toastNotification.AddErrorToastMessage(NotifyMessage.ResultTitle.Delete(id.ToString()), new ToastrOptions { Title = "Deleted Successfully" });
-                return RedirectToAction("Index", "Product", new { Area = "Admin" });
-            }
-            return View();
+            await _productImageService.DeleteProductImageAsync(id);
+           
+            _toastNotification.AddErrorToastMessage(NotifyMessage.ResultTitle.Delete(id.ToString()), new ToastrOptions { Title = "Deleted Successfully" });
+            return RedirectToAction("Index", "Product", new { Area = "Admin" });
+          
         }
 
         [HttpGet]
@@ -111,46 +99,32 @@ namespace MultiShopWithMicroservice.WebUI.Areas.Admin.Controllers
 
             PictureProductList();
 
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7070/api/ProductImages/" + id);
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var value = JsonConvert.DeserializeObject<UpdateProductImageDto>(jsonData);
-                return View(value);
-            }
-            return View();
+            var value=await _productImageService.GetByIdProductImageAsync(id);
+
+            return View(value);
+           
         }
 
         [HttpPost]
         public async Task<IActionResult> UpdateProductImage(UpdateProductImageDto updateProductImageDto)
         {
-            var client = _httpClientFactory.CreateClient();
-            var jsonData = JsonConvert.SerializeObject(updateProductImageDto);
-            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PutAsync("https://localhost:7070/api/ProductImages", stringContent);
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                _toastNotification.AddWarningToastMessage(NotifyMessage.ResultTitle.Update(updateProductImageDto.ProductId), new ToastrOptions { Title = "Successfully updated" });
-                return RedirectToAction("Index", "Product", new { Area = "Admin" });
-            }
-            return View();
+            await _productImageService.UpdateProductImageAsync(updateProductImageDto);
+            
+            _toastNotification.AddWarningToastMessage(NotifyMessage.ResultTitle.Update(updateProductImageDto.ProductId), new ToastrOptions { Title = "Successfully updated" });
+            return RedirectToAction("Index", "Product", new { Area = "Admin" });
+          
         }
 
         public async void PictureProductList()
         {
             #region Product
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7070/api/Products");
-            var jsonData = await responseMessage.Content.ReadAsStringAsync();
-            var value = JsonConvert.DeserializeObject<List<ResultProductDto>>(jsonData);
-            List<SelectListItem> productValue = (from x in value
-                                                 select new SelectListItem
-                                                 {
-                                                     Text = x.ProductName,
-                                                     Value = x.ProductId.ToString()
-                                                 }).ToList();
-            ViewBag.ProductList = productValue;
+            var productList = await _productService.GetAllProductsAsync();
+            ViewBag.ProductList = (from x in productList
+                                   select new SelectListItem
+                                   {
+                                       Text = x.ProductName,
+                                       Value = x.ProductId
+                                   }).ToList();
             #endregion
         }
         void ProductImageViewbagList()
