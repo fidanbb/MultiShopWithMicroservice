@@ -1,20 +1,20 @@
-﻿@model List<ResultBrandDto>
+﻿﻿@using X.Web.PagedList
+
+@model X.PagedList.IPagedList<ResultBrandDto>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
 }
-
+<section class="content container-fluid">
 <div class="row">
     <div class="col-md-12">
         <div class="chart-box">
 
-            <div id="example_filter" class="dataTables_filter pull-right">
-                <input class="form-control" id="placeholderInput" placeholder="Search" type="text">
-            </div>
+           
             <table class="table table-responsive">
                 @{
-                    int count = 0;
+                    int count = ViewBag.PageSize;
                 }
                 <thead>
                     <tr>
@@ -68,6 +68,17 @@
             </table>
             <a class="btn btn-outline btn-rounded btn-primary" asp-action="CreateBrand" asp-controller="Brand">New Brand Entry</a>
         </div>
+    
+        <div class="pagination">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }),
+                     new PagedListRenderOptions
+            {
+                LiElementClasses = new string[] { "page-item" },
+                PageClasses = new string[] { "page-link" },
+                Display = PagedListDisplayMode.IfNeeded
+            })
+        </div>
     </div>
 </div>
+</section>
 

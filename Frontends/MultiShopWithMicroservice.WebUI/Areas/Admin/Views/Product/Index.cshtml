@@ -1,17 +1,17 @@
-﻿@model List<ResultProductWithCategoryDto>
+﻿﻿@using X.Web.PagedList
+
+@model X.PagedList.IPagedList<ResultProductWithCategoryDto>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
-    int count = 0;
+    int count = ViewBag.PageSize;
 }
 
 <section class="content container-fluid">
     <div class="row">
         <div class="col-md-12">
             <div class="chart-box">
-                <a class="btn btn-outline btn-rounded btn-sm btn-primary" asp-controller="Product" asp-action="CreateProduct" asp-area="Admin">Add New Product</a>
-                <br />
-                <br />
+               
                 <table class="table table-responsive">
                     <thead>
                         <tr>
@@ -67,7 +67,20 @@
                     }
 
                 </table>
+                <a class="btn btn-outline btn-rounded btn-sm btn-primary" asp-controller="Product" asp-action="CreateProduct" asp-area="Admin">Add New Product</a>
+
             </div>
+
+            <div class="pagination">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }),
+                         new PagedListRenderOptions
+                {
+                    LiElementClasses = new string[] { "page-item" },
+                    PageClasses = new string[] { "page-link" },
+                    Display = PagedListDisplayMode.IfNeeded
+                })
+            </div>
+        
         </div>
     </div>
 </section>

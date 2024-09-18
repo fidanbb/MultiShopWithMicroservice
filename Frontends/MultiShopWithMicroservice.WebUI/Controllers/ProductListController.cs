@@ -17,12 +17,18 @@ namespace MultiShopWithMicroservice.WebUI.Controllers
 
         public IActionResult Index(string? id)
         {
+            ViewBag.directory1 = "Home";
+            ViewBag.directory2 = "Products";
+            ViewBag.directory3 = "Product List";
             ViewBag.categoryId = id;
             return View();
         }
 
         public IActionResult ProductDetail(string id)
         {
+            ViewBag.directory1 = "Home";
+            ViewBag.directory2 = "Products";
+            ViewBag.directory3 = "Product Detail";
             ViewBag.productId = id;
             return View();
         }

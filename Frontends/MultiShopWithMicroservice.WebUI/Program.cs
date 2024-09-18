@@ -35,7 +35,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient();
 
-//builder.Services.AddHttpClient<IIdentityService, IdentityService>();
 builder.Services.AddControllersWithViews()
      .AddNToastNotifyToastr(new ToastrOptions()
      {
@@ -55,16 +54,7 @@ builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddAccessTokenManagement();
 builder.Services.AddHttpClientServices(builder.Configuration);
 
-//var values = builder.Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
-//builder.Services.AddHttpClient<IUserService, UserService>(opt =>
-//{
-//    opt.BaseAddress = new Uri(values.IdentityServerUrl);
-//}).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 
-//builder.Services.AddHttpClient<ICategoryService, CategoryService>(opt =>
-//{
-//    opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Catalog.Path}");
-//});
 
 var app = builder.Build();
 

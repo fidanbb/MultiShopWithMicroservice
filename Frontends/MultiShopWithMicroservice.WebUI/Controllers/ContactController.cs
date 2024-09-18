@@ -7,6 +7,9 @@ namespace MultiShopWithMicroservice.WebUI.Controllers
     {
         public IActionResult Index()
         {
+            ViewBag.directory1 = "Home";
+            ViewBag.directory2 = "Contact";
+            ViewBag.directory3 = "Contact Us";
             return View();
         }
 

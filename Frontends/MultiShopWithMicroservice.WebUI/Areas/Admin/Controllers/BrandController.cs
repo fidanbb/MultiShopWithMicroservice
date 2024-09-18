@@ -1,34 +1,33 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using MultiShopWithMicroservice.DtoLayer.CatalogDtos.BrandDtos;
+using MultiShopWithMicroservice.WebUI.Services.CatalogServices.BrandServices;
 using Newtonsoft.Json;
 using System.Text;
+using X.PagedList.Extensions;
 
 namespace MultiShopWithMicroservice.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("Admin/[controller]/[action]/{id?}")]
-    [AllowAnonymous]
     public class BrandController : Controller
     {
-        private readonly IHttpClientFactory _httpClientFactory;
-        public BrandController(IHttpClientFactory httpClientFactory)
+        private readonly IBrandService _brandService;
+        public BrandController(IBrandService brandService)
         {
-            _httpClientFactory = httpClientFactory;
+            _brandService = brandService;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page=1)
         {
             BrandViewbagList();
+            var values =await _brandService.GetAllBrandAsync();
+            int pageSize = 5;
+            var pagedValues = values.ToPagedList(page, pageSize);
+            int pagedCount = (pageSize * (page - 1));
+            ViewBag.PageSize = pagedCount;
 
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7070/api/Brands");
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultBrandDto>>(jsonData);
-                return View(values);
-            }
-            return View();
+            return View(pagedValues);
         }
 
         [HttpGet]
@@ -41,55 +40,33 @@ namespace MultiShopWithMicroservice.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateBrand(CreateBrandDto createBrandDto)
         {
-            var client = _httpClientFactory.CreateClient();
-            var jsonData = JsonConvert.SerializeObject(createBrandDto);
-            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PostAsync("https://localhost:7070/api/Brands", stringContent);
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index", "Brand", new { area = "Admin" });
-            }
-            return View();
+            await _brandService.CreateBrandAsync(createBrandDto);
+            return RedirectToAction("Index", "Brand", new { area = "Admin" });
+       
         }
 
         public async Task<IActionResult> DeleteBrand(string id)
         {
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.DeleteAsync("https://localhost:7070/api/Brands?id=" + id);
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index", "Brand", new { area = "Admin" });
-            }
-            return View();
+            await _brandService.DeleteBrandAsync(id);
+           
+            return RedirectToAction("Index", "Brand", new { area = "Admin" });
+         
         }
 
         [HttpGet]
         public async Task<IActionResult> UpdateBrand(string id)
         {
             BrandViewbagList();
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7070/api/Brands/" + id);
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<UpdateBrandDto>(jsonData);
-                return View(values);
-            }
-            return View();
+           var value=await _brandService.GetByIdBrandAsync(id);
+            return View(value);
         }
         [HttpPost]
         public async Task<IActionResult> UpdateBrand(UpdateBrandDto updateBrandDto)
         {
-
-            var client = _httpClientFactory.CreateClient();
-            var jsonData = JsonConvert.SerializeObject(updateBrandDto);
-            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PutAsync("https://localhost:7070/api/Brands/", stringContent);
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index", "Brand", new { area = "Admin" });
-            }
-            return View();
+            await _brandService.UpdateBrandAsync(updateBrandDto);
+           
+            return RedirectToAction("Index", "Brand", new { area = "Admin" });
+            
         }
 
         void BrandViewbagList()
