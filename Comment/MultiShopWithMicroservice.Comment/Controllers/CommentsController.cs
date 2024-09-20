@@ -7,7 +7,7 @@ using MultiShopWithMicroservice.Comment.Entities;
 
 namespace MultiShopWithMicroservice.Comment.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CommentsController : ControllerBase

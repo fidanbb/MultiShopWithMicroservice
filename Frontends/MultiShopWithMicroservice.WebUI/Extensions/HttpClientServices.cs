@@ -3,6 +3,7 @@ using MultiShopWithMicroservice.WebUI.Handlers;
 using MultiShopWithMicroservice.WebUI.Services.CatalogServices.AboutServices;
 using MultiShopWithMicroservice.WebUI.Services.CatalogServices.BrandServices;
 using MultiShopWithMicroservice.WebUI.Services.CatalogServices.CategoryServices;
+using MultiShopWithMicroservice.WebUI.Services.CatalogServices.ContactServices;
 using MultiShopWithMicroservice.WebUI.Services.CatalogServices.FeatureServices;
 using MultiShopWithMicroservice.WebUI.Services.CatalogServices.FeatureSliderServices;
 using MultiShopWithMicroservice.WebUI.Services.CatalogServices.OfferDiscountServices;
@@ -10,6 +11,7 @@ using MultiShopWithMicroservice.WebUI.Services.CatalogServices.ProductDetailServ
 using MultiShopWithMicroservice.WebUI.Services.CatalogServices.ProductImageServices;
 using MultiShopWithMicroservice.WebUI.Services.CatalogServices.ProductServices;
 using MultiShopWithMicroservice.WebUI.Services.CatalogServices.SpecialOfferServices;
+using MultiShopWithMicroservice.WebUI.Services.CommentServices;
 using MultiShopWithMicroservice.WebUI.Services.Concrete;
 using MultiShopWithMicroservice.WebUI.Services.Interfaces;
 using MultiShopWithMicroservice.WebUI.Settings;
@@ -76,6 +78,16 @@ namespace MultiShopWithMicroservice.WebUI.Extensions
             }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
 
             services.AddHttpClient<IProductImageService, ProductImageService>(opt =>
+            {
+                opt.BaseAddress = new Uri(serviceApiSettings.OcelotUrl + serviceApiSettings.Catalog.Path);
+            }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
+
+            services.AddHttpClient<ICommentService, CommentService>(opt =>
+            {
+                opt.BaseAddress = new Uri(serviceApiSettings.OcelotUrl + serviceApiSettings.Comment.Path);
+            }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
+
+            services.AddHttpClient<IContactService, ContactService>(opt =>
             {
                 opt.BaseAddress = new Uri(serviceApiSettings.OcelotUrl + serviceApiSettings.Catalog.Path);
             }).AddHttpMessageHandler<ClientCredentialTokenHandler>();

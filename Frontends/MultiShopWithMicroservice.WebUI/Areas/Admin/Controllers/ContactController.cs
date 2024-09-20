@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MultiShopWithMicroservice.DtoLayer.CatalogDtos.ContactDtos;
+using MultiShopWithMicroservice.WebUI.Services.CatalogServices.CategoryServices;
+using MultiShopWithMicroservice.WebUI.Services.CatalogServices.ContactServices;
+using System.Drawing.Printing;
 using System.Net.Http;
+using X.PagedList.Extensions;
 
 namespace MultiShopWithMicroservice.WebUI.Areas.Admin.Controllers
 {
@@ -10,32 +14,37 @@ namespace MultiShopWithMicroservice.WebUI.Areas.Admin.Controllers
     [AllowAnonymous]
     public class ContactController : Controller
     {
-        private readonly HttpClient _client;
 
-        public ContactController(HttpClient client)
+        private readonly IContactService _contactService;
+
+        public ContactController(IContactService contactService)
         {
-            client.BaseAddress = new Uri("https://localhost:7070/api/");
-            _client = client;
+            _contactService = contactService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page=1)
         {
             ContactViewbagList();
-            var values = await _client.GetFromJsonAsync<List<ResultContactDto>>("contacts");
-            return View(values);
+            var values = await _contactService.GetAllContactAsync();
+            int pageSize = 5;
+            var pagedValues = values.ToPagedList(page, pageSize);
+            int pagedCount = (pageSize * (page - 1));
+            ViewBag.PageSize = pagedCount;
+
+            return View(pagedValues);
         }
 
 
         public async Task<IActionResult> ChangeIsRead(string id)
         {
-            await _client.GetAsync("contacts/ChangeIsRead/" + id);
+           var value= await _contactService.ChangeIsReadAsync(id);
             return RedirectToAction("Index");
         }
 
 
         public async Task<IActionResult> DeleteContact(string id)
         {
-            await _client.DeleteAsync("contacts?id=" + id);
+            await _contactService.DeleteContactAsync(id);
             return RedirectToAction("Index");
         }
 

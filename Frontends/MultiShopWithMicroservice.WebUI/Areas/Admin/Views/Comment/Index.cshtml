@@ -1,9 +1,12 @@
-﻿@model List<ResultCommentDto>
+﻿@using X.Web.PagedList
+
+@model X.PagedList.IPagedList<ResultCommentDto>
 
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+   
 }
 <section class="content container-fluid">
 <div class="row">
@@ -13,7 +16,7 @@
           
             <table class="table table-responsive">
                 @{
-                    int count = 0;
+                        int count = ViewBag.PageSize;
                 }
                 <thead>
                     <tr>
@@ -98,6 +101,15 @@
             </table>
 
         </div>
+            <div class="pagination">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }),
+                         new PagedListRenderOptions
+                {
+                    LiElementClasses = new string[] { "page-item" },
+                    PageClasses = new string[] { "page-link" },
+                    Display = PagedListDisplayMode.IfNeeded
+                })
+            </div>
     </div>
 </div>
 </section>
