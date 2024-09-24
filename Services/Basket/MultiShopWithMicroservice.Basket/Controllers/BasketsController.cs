@@ -25,9 +25,9 @@ namespace MultiShopWithMicroservice.Basket.Controllers
         {
             var user = User.Claims;
 
-            //var userId = _loginService.GetUserId;
+            var userId = _loginService.GetUserId;
 
-            var values = await _basketService.GetBasketAsync(_loginService.GetUserId);
+            var values = await _basketService.GetBasketAsync(userId);
 
             return Ok(values);
         }
@@ -47,7 +47,8 @@ namespace MultiShopWithMicroservice.Basket.Controllers
 
         public async Task<IActionResult> DeleteBasket()
         {
-            await _basketService.DeleteBasketAsync(_loginService.GetUserId);
+            var userId = _loginService.GetUserId;
+            await _basketService.DeleteBasketAsync(userId);
 
             return Ok("Basket deleted successfully");
         }

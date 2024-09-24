@@ -1,5 +1,6 @@
 ﻿using MultiShopWithMicroservice.WebUI.Areas.Admin.Controllers;
 using MultiShopWithMicroservice.WebUI.Handlers;
+using MultiShopWithMicroservice.WebUI.Services.BasketServices;
 using MultiShopWithMicroservice.WebUI.Services.CatalogServices.AboutServices;
 using MultiShopWithMicroservice.WebUI.Services.CatalogServices.BrandServices;
 using MultiShopWithMicroservice.WebUI.Services.CatalogServices.CategoryServices;
@@ -91,6 +92,11 @@ namespace MultiShopWithMicroservice.WebUI.Extensions
             {
                 opt.BaseAddress = new Uri(serviceApiSettings.OcelotUrl + serviceApiSettings.Catalog.Path);
             }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
+
+            services.AddHttpClient<IBasketService, BasketService>(opt =>
+            {
+                opt.BaseAddress = new Uri(serviceApiSettings.OcelotUrl + serviceApiSettings.Basket.Path);
+            }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
         }
     }
 }
