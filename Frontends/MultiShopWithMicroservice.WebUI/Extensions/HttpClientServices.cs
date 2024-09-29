@@ -16,6 +16,8 @@ using MultiShopWithMicroservice.WebUI.Services.CommentServices;
 using MultiShopWithMicroservice.WebUI.Services.Concrete;
 using MultiShopWithMicroservice.WebUI.Services.DiscountServices;
 using MultiShopWithMicroservice.WebUI.Services.Interfaces;
+using MultiShopWithMicroservice.WebUI.Services.OrderServices.OrderAddressServices;
+using MultiShopWithMicroservice.WebUI.Services.OrderServices.OrderOrderingServices;
 using MultiShopWithMicroservice.WebUI.Settings;
 
 namespace MultiShopWithMicroservice.WebUI.Extensions
@@ -102,6 +104,16 @@ namespace MultiShopWithMicroservice.WebUI.Extensions
             services.AddHttpClient<IDiscountService, DiscountService>(opt =>
             {
                 opt.BaseAddress = new Uri(serviceApiSettings.OcelotUrl + serviceApiSettings.Discount.Path);
+            }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+
+            services.AddHttpClient<IOrderAddressService, OrderAddressService>(opt =>
+            {
+                opt.BaseAddress = new Uri(serviceApiSettings.OcelotUrl + serviceApiSettings.Order.Path);
+            }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+
+            services.AddHttpClient<IOrderOrderingService, OrderOrderingService>(opt =>
+            {
+                opt.BaseAddress = new Uri(serviceApiSettings.OcelotUrl + serviceApiSettings.Order.Path);
             }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
         }
     }
