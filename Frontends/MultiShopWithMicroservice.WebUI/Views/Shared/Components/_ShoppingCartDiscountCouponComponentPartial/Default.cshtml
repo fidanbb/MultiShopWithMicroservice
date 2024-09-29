@@ -1,7 +1,13 @@
-﻿<div class="col-lg-4">
-    <form class="mb-30" action="">
+﻿@model BasketCouponViewModel
+
+@{
+    decimal discountPrice = 0;
+}
+
+<div class="col-lg-4">
+    <form class="mb-30" id="applyCouponForm">
         <div class="input-group">
-            <input type="text" class="form-control border-0 p-4" placeholder="Coupon Code">
+            <input type="text" class="form-control border-0 p-4" placeholder="Coupon Code" id="couponCode" required>
             <div class="input-group-append">
                 <button class="btn btn-primary">Apply Coupon</button>
             </div>
@@ -12,19 +18,65 @@
         <div class="border-bottom pb-2">
             <div class="d-flex justify-content-between mb-3">
                 <h6>Subtotal</h6>
-                <h6>$150</h6>
+                <h6>$@Model.BasketTotalDto.OriginalPrice</h6>
             </div>
-            <div class="d-flex justify-content-between">
-                <h6 class="font-weight-medium">Shipping</h6>
-                <h6 class="font-weight-medium">$10</h6>
-            </div>
+            @if (Model.BasketTotalDto.HasDiscount)
+            {
+                <div class="d-flex justify-content-between mb-1">
+                    <h6 class="font-weight-medium">Coupon Code</h6>
+                    <h6 class="font-weight-medium">@Model?.BasketTotalDto.DiscountCode</h6>
+                </div>
+                <div class="d-flex justify-content-between mb-1">
+                    <h6 class="font-weight-medium">Discount Rate(%@Model?.BasketTotalDto.DiscountRate.Value)</h6>
+                    @{
+                        discountPrice = (Model.BasketTotalDto.OriginalPrice) * (Model.BasketTotalDto.DiscountRate.Value) / 100;
+                    }
+                    <h6 class="font-weight-medium">-$@discountPrice</h6>
+                </div>
+            }
+           
         </div>
         <div class="pt-2">
             <div class="d-flex justify-content-between mt-2">
-                <h5>Total</h5>
-                <h5>$160</h5>
+                <h5>Total Price</h5>
+                <h5>$@Model.BasketTotalDto.TotalPrice</h5>
             </div>
+            @if (Model.BasketTotalDto.HasDiscount)
+            {
+                <a asp-action="CancelApplyDiscount" asp-controller="ShoppingCart" class="btn btn-block btn-danger font-weight-bold my-3 py-3">Cancel Coupon</a>
+            }
             <button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Proceed To Checkout</button>
         </div>
     </div>
 </div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#applyCouponForm").submit(function (event) {
+
+            event.preventDefault();
+
+            var couponCode = $("#couponCode").val().trim();
+
+            if (!couponCode) {
+                alert("Coupon Code needed!");
+                return;
+            }
+
+            $.ajax({
+                url: "/ShoppingCart/ApplyDiscount", 
+                type: "POST",
+                data: { Code: couponCode },
+                success: function (response) {
+                    console.log("Coupon successfully applied!");
+                    window.location.href = "/ShoppingCart/Index?couponCode=" + couponCode;
+                },
+                error: function (xhr, status, error) {
+                    console.error("An error occurred while applying the coupon: " + error);
+                }
+            });
+        });
+    });
+</script>

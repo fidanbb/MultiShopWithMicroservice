@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MultiShopWithMicroservice.DtoLayer.BasketDtos;
+using MultiShopWithMicroservice.DtoLayer.DiscountDtos;
 using MultiShopWithMicroservice.WebUI.Services.BasketServices;
 using MultiShopWithMicroservice.WebUI.Services.CatalogServices.ProductServices;
 
@@ -49,6 +50,19 @@ namespace MultiShopWithMicroservice.WebUI.Controllers
         public async Task<IActionResult> RemoveBasketItem(string id)
         {
             await _basketService.RemoveBasketItemAsync(id);
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> ApplyDiscount(DiscountApplyInput discountApplyInput)
+        {
+            var status = await _basketService.ApplyDiscountAsync(discountApplyInput.Code);
+            TempData["discountStatus"] = status;
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> CancelApplyDiscount()
+        {
+            var status = await _basketService.CancelApplyDiscountAsync();
             return RedirectToAction("Index");
         }
     }

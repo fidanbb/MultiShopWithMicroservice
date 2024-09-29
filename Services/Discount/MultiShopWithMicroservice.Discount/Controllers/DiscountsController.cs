@@ -56,5 +56,12 @@ namespace MultiShopWithMicroservice.Discount.Controllers
 
             return Ok("Coupon updated successfully");
         }
+
+        [HttpGet("GetDiscountCodeDetailByCode")]
+
+        public async Task<IActionResult> GetDiscountCodeDetailByCode(string code)
+        {
+            return Ok(await _discountService.GetCodeDetailByCouponCodeAsync(code));
+        }
     }
 }

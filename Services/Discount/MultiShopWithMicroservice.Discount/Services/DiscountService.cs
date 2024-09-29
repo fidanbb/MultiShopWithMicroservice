@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using MultiShopWithMicroservice.Discount.Context;
 using MultiShopWithMicroservice.Discount.Dtos;
+using MultiShopWithMicroservice.Discount.Entities;
 
 namespace MultiShopWithMicroservice.Discount.Services
 {
@@ -66,6 +67,22 @@ namespace MultiShopWithMicroservice.Discount.Services
             using (var connection = _dapperContext.CreateConnection())
             {
                 var value = await connection.QueryFirstOrDefaultAsync<GetByIdDiscountCouponDto>(query,parametrs);
+
+                return value;
+
+            }
+        }
+
+        public async Task<ResultDiscountCouponDto> GetCodeDetailByCouponCodeAsync(string code)
+        {
+            string query = "Select * from Coupons where Code=@code";
+
+            var parametrs = new DynamicParameters();
+            parametrs.Add("@code", code);
+
+            using (var connection = _dapperContext.CreateConnection())
+            {
+                var value = await connection.QueryFirstOrDefaultAsync<ResultDiscountCouponDto>(query, parametrs);
 
                 return value;
 

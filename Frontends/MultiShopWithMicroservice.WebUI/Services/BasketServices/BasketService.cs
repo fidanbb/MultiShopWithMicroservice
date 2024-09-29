@@ -1,4 +1,5 @@
 ﻿using MultiShopWithMicroservice.DtoLayer.BasketDtos;
+using MultiShopWithMicroservice.WebUI.Services.DiscountServices;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Text;
@@ -8,10 +9,12 @@ namespace MultiShopWithMicroservice.WebUI.Services.BasketServices
     public class BasketService : IBasketService
     {
         private readonly HttpClient _httpClient;
+        private readonly IDiscountService _discountService;
 
-        public BasketService(HttpClient httpClient)
+        public BasketService(HttpClient httpClient, IDiscountService discountService)
         {
             _httpClient = httpClient;
+            _discountService = discountService;
         }
         public async Task AddBasketItemAsync(BasketItemDto basketItemDto)
         {
@@ -34,7 +37,30 @@ namespace MultiShopWithMicroservice.WebUI.Services.BasketServices
         
             await SaveBasketAsync(values);
         }
+        public async Task<bool> ApplyDiscountAsync(string discountCode)
+        {
+            await CancelApplyDiscountAsync();
+            var basket = await GetBasketAsync();
 
+            var hasDiscount = await _discountService.GetDiscountCode(discountCode);
+            if (hasDiscount == null)
+            {
+                return false;
+            }
+            basket.DiscountRate = hasDiscount.Rate;
+            basket.DiscountCode = hasDiscount.Code;
+            await SaveBasketAsync(basket);
+            return true;
+        }
+
+        public async Task<bool> CancelApplyDiscountAsync()
+        {
+            var basket = await GetBasketAsync();
+            basket.DiscountCode = "-";
+            basket.DiscountRate = 0;
+            await SaveBasketAsync(basket);
+            return true;
+        }
         public async Task DeleteBasketAsync()
         {
             await _httpClient.DeleteAsync("baskets");
@@ -55,7 +81,7 @@ namespace MultiShopWithMicroservice.WebUI.Services.BasketServices
                var values = new BasketTotalDto
                 {
                     UserId = "",
-                    DiscountCode = "",
+                    DiscountCode = "-",
                     DiscountRate = 0,
                     BasketItems = new List<BasketItemDto>()
                 };

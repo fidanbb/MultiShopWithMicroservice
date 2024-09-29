@@ -11,5 +11,8 @@ namespace MultiShopWithMicroservice.WebUI.Services.BasketServices
         Task AddBasketItemAsync(BasketItemDto basketItemDto);
 
         Task<bool> RemoveBasketItemAsync(string productId);
+
+        Task<bool> ApplyDiscountAsync(string discountCode);
+        Task<bool> CancelApplyDiscountAsync();
     }
 }

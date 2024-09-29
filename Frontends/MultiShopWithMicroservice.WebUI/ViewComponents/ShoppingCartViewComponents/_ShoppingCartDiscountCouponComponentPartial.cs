@@ -1,12 +1,29 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MultiShopWithMicroservice.WebUI.Models;
+using MultiShopWithMicroservice.WebUI.Services.BasketServices;
 
 namespace MultiShopWithMicroservice.WebUI.ViewComponents.ShoppingCartViewComponents
 {
     public class _ShoppingCartDiscountCouponComponentPartial : ViewComponent
     {
-        public IViewComponentResult Invoke()
+        private readonly IBasketService _basketService;
+
+        public _ShoppingCartDiscountCouponComponentPartial(IBasketService basketService)
         {
-            return View();
+            _basketService = basketService;
+        }
+
+        public async Task<IViewComponentResult> InvokeAsync(string? couponCode)
+        {
+
+            var basket = await _basketService.GetBasketAsync();
+
+
+            var result = new BasketCouponViewModel
+            {
+                BasketTotalDto = basket,
+            };
+            return View(result);
         }
     }
 }
