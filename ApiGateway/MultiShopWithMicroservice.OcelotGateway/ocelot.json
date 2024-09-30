@@ -114,7 +114,7 @@
         "AllowedScopes": [ "CommentFullPermission" ]
       }
     },
-    //Payment Microservice
+    //Message Microservice
     {
       "DownstreamPathTemplate": "/api/{everything}",
       "DownstreamScheme": "https",
@@ -122,6 +122,24 @@
         {
           "Host": "localhost",
           "Port": 7076
+        }
+      ],
+      "UpstreamPathTemplate": "/services/message/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "UpstreamScheme": "https",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "OcelotAuthenticationScheme",
+        "AllowedScopes": [ "MessageFullPermission" ]
+      }
+    },
+    //Payment Microservice
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7077
         }
       ],
       "UpstreamPathTemplate": "/services/payment/{everything}",
@@ -139,7 +157,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 7077
+          "Port": 7078
         }
       ],
       "UpstreamPathTemplate": "/services/images/{everything}",
