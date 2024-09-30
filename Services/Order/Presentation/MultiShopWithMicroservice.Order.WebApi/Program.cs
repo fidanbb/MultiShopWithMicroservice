@@ -35,6 +35,7 @@ builder.Services.AddScoped<GetOrderDetailByIdQueryHandler>();
 builder.Services.AddScoped<CreateOrderDetailCommandHandler>();
 builder.Services.AddScoped<UpdateOrderDetailCommandHandler>();
 builder.Services.AddScoped<RemoveOrderDetailCommandHandler>();
+builder.Services.AddScoped<GetOrderDetailByOrderingIdQueryHandler>();
 #endregion
 
 

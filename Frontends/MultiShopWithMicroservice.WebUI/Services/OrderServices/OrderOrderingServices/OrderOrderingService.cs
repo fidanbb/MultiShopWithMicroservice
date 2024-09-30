@@ -15,7 +15,7 @@ namespace MultiShopWithMicroservice.WebUI.Services.OrderServices.OrderOrderingSe
         public async Task<List<ResultOrderingByUserIdDto>> GetOrderingByUserId(string id)
         {
 
-            return await _httpClient.GetFromJsonAsync<List<ResultOrderingByUserIdDto>>("Orderings/GetOrderingByUserId?id=" + id);
+            return await _httpClient.GetFromJsonAsync<List<ResultOrderingByUserIdDto>>("Orderings/GetOrderingByUserId/" + id);
 
            
         }

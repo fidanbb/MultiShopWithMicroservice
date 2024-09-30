@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using MultiShopWithMicroservice.Order.Application.Interfaces;
 using MultiShopWithMicroservice.Order.Persistance.Context;
 using System;
@@ -21,6 +22,10 @@ namespace MultiShopWithMicroservice.Order.Persistance.Repositories
         {
             _context.Set<T>().Add(entity);
             await _context.SaveChangesAsync();
+        }
+        public async Task<List<T>> GetFilteredListAsync(Expression<Func<T, bool>> filter)
+        {
+            return await _context.Set<T>().Where(filter).ToListAsync();
         }
         public async Task DeleteAsync(T entity)
         {
