@@ -1,0 +1,61 @@
+﻿@model IList<ResultCustomerDto>
+@{
+    ViewData["Title"] = "AddressDetailByUserId";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="chart-box">
+            @if (Model is null)
+            {
+                <div class="alert alert-warning">
+
+                    User address not found! <strong><a href="/Admin/User/UserList">Back to Users</a></strong>
+                </div>
+            }
+            else
+            {
+              
+                <table class="table table-responsive table-striped">
+
+                    <tbody>
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            <tr>
+                                <th class="sortable">Name Surname:</th>
+                                <td class="sortable">@Model[i].Name @Model[i].Surname</td>
+                            </tr>
+                            <tr>
+                                <th class="sortable">Email:</th>
+                                <td class="sortable">@Model[i].Email</td>
+                            </tr>
+                            <tr>
+                                <th class="sortable">Phone:</th>
+                                <td class="sortable">@Model[i].Phone</td>
+                            </tr>
+                            <tr>
+                                <th class="sortable">City:</th>
+                                <td class="sortable">@Model[i].City</td>
+                            </tr>
+                            <tr>
+                                <th class="sortable">District:</th>
+                                <td class="sortable">@Model[i].District</td>
+                            </tr>
+                            <tr>
+                                <th class="sortable">Address:</th>
+                                <td class="sortable">@Model[i].Address</td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+
+
+                </table>
+                <br />
+                <strong><a href="/Admin/User/UserList" class="btn btn-outline-info btn-rounded">Back to Users</a></strong>
+            }
+        </div>
+    </div>
+</div>

@@ -1,4 +1,5 @@
-﻿using MultiShopWithMicroservice.WebUI.Models;
+﻿using MultiShopWithMicroservice.DtoLayer.IdentityDtos;
+using MultiShopWithMicroservice.WebUI.Models;
 using MultiShopWithMicroservice.WebUI.Services.Interfaces;
 
 namespace MultiShopWithMicroservice.WebUI.Services.Concrete
@@ -12,7 +13,12 @@ namespace MultiShopWithMicroservice.WebUI.Services.Concrete
 			_httpClient = httpClient;
 		}
 
-		public async Task<UserDetailViewModel> GetUserInfo()
+        public async Task<List<ResultUserDto>> GetAllUsers()
+        {
+            return await _httpClient.GetFromJsonAsync<List<ResultUserDto>>("/api/users/GetAllUsers");
+        }
+
+        public async Task<UserDetailViewModel> GetUserInfo()
 		{
 			return await _httpClient.GetFromJsonAsync<UserDetailViewModel>("/api/users/GetUserInfo");
 		}

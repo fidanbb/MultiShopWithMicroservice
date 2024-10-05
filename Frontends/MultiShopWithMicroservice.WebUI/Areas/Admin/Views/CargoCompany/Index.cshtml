@@ -1,0 +1,48 @@
+﻿@model List<ResultCargoCompanyDto>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="chart-box">
+
+            
+            <table class="table table-responsive">
+                @{
+                    int count = 0;
+                }
+                <thead>
+                    <tr>
+                        <th class="sortable">#</th>
+
+                        <th class="sortable">Cargo Company</th>
+
+                        <th class="sortable">Operations</th>
+
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    count++;
+
+                    <tr>
+                        <td class="text-truncate">@count</td>
+
+                        <td class="text-truncate">@item.CargoCompanyName</td>
+
+                        <td class="text-truncate">
+                            <a class="btn btn-outline btn-rounded btn-danger" asp-action="DeleteCompany" asp-route-id="@item.CargoCompanyID"><i class="fa fa-eraser"></i> </a>
+                            <a class="btn btn-outline btn-rounded btn-info" asp-action="UpdateCompany" asp-route-id="@item.CargoCompanyID"><i class="fa fa-edit"></i> </a>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+            <a class="btn btn-outline btn-rounded btn-primary" asp-action="CreateCompany" asp-controller="CargoCompany" asp-area="Admin">Add New Cargo Company</a>
+        </div>
+    </div>
+</div>
+

@@ -73,6 +73,16 @@ namespace MultiShopWithMicroservice.Discount.Services
             }
         }
 
+        public async Task<int> GetDiscountCouponCount()
+        {
+            string query = "Select Count(*)From Coupons";
+            using (var connection = _dapperContext.CreateConnection())
+            {
+                var values = await connection.QueryFirstOrDefaultAsync<int>(query);
+                return values;
+            }
+        }
+
         public async Task<ResultDiscountCouponDto> GetCodeDetailByCouponCodeAsync(string code)
         {
             string query = "Select * from Coupons where Code=@code";

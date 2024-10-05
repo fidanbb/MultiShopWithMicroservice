@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MultiShopWithMicroservice.IdentityServer.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
@@ -37,5 +38,12 @@ namespace MultiShopWithMicroservice.IdentityServer.Controllers
 				Surname = user.Surname,
 			});
 		}
-	}
+
+        [HttpGet("GetAllUsers")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var users = await _userManager.Users.ToListAsync();
+            return Ok(users);
+        }
+    }
 }

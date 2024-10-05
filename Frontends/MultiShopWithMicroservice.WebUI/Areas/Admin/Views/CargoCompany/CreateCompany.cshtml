@@ -1,0 +1,23 @@
+﻿@model CreateCargoCompanyDto
+
+@{
+    ViewData["Title"] = "CreateCompany";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="chart-box">
+
+            <form method="post">
+                <label>Cargo Company Name</label>
+                <input type="text" asp-for="CargoCompanyName" class="form-control" />
+                <br>
+                <button class="btn btn-outline btn-rounded btn-primary"><i class="fa fa-save"></i> Save</button>
+                <a href="/Admin/CargoCompany/Index" class="btn btn-outline btn-rounded btn-danger">Cancel</a>
+
+            </form>
+        </div>
+    </div>
+</div>
+

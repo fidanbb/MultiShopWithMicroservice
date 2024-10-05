@@ -11,6 +11,7 @@ using MultiShopWithMicroservice.Catalog.Services.ProductDetailServices;
 using MultiShopWithMicroservice.Catalog.Services.ProductImageServices;
 using MultiShopWithMicroservice.Catalog.Services.ProductServices;
 using MultiShopWithMicroservice.Catalog.Services.SpecialOfferServices;
+using MultiShopWithMicroservice.Catalog.Services.StatisticsServices;
 using MultiShopWithMicroservice.Catalog.Settings;
 using System.Reflection;
 
@@ -40,6 +41,7 @@ builder.Services.AddScoped<IOfferDiscountService, OfferDiscountService>();
 builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IAboutService, AboutService>();
 builder.Services.AddScoped<IContactService, ContactService>();
+builder.Services.AddScoped<IStatisticService, StatisticService>();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettings"));
