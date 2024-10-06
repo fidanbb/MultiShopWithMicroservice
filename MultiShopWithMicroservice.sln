@@ -74,7 +74,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiShopWithMicroservice.P
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Message", "Message", "{4C0C747D-C1E5-4F7E-93E5-FA59D3D4051F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiShopWithMicroservice.Message", "Services\Message\MultiShopWithMicroservice.Message\MultiShopWithMicroservice.Message.csproj", "{212AD161-28DB-4D1D-AE5F-A61C12D8B680}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiShopWithMicroservice.Message", "Services\Message\MultiShopWithMicroservice.Message\MultiShopWithMicroservice.Message.csproj", "{212AD161-28DB-4D1D-AE5F-A61C12D8B680}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SignalR", "SignalR", "{F2373FCB-9DF3-40F9-AA6D-3486B812BCB1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiShopWithMicroservice.SignalRApi", "Services\SignalR\MultiShopWithMicroservice.SignalRApi\MultiShopWithMicroservice.SignalRApi.csproj", "{2124151D-9DF4-4CE1-B73E-AFB94A7B74D5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{728016F2-BF72-4696-B13D-F7A244EA132C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiShopWithMicroservice.Image.WebUI", "Services\Images\MultiShopWithMicroservice.Image.WebUI\MultiShopWithMicroservice.Image.WebUI.csproj", "{753531DE-546C-48D0-BE71-AC572131678C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -158,6 +166,14 @@ Global
 		{212AD161-28DB-4D1D-AE5F-A61C12D8B680}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{212AD161-28DB-4D1D-AE5F-A61C12D8B680}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{212AD161-28DB-4D1D-AE5F-A61C12D8B680}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2124151D-9DF4-4CE1-B73E-AFB94A7B74D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2124151D-9DF4-4CE1-B73E-AFB94A7B74D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2124151D-9DF4-4CE1-B73E-AFB94A7B74D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2124151D-9DF4-4CE1-B73E-AFB94A7B74D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{753531DE-546C-48D0-BE71-AC572131678C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{753531DE-546C-48D0-BE71-AC572131678C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{753531DE-546C-48D0-BE71-AC572131678C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{753531DE-546C-48D0-BE71-AC572131678C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -193,6 +209,10 @@ Global
 		{744838BD-A5D7-4865-BB22-AAAE5E5B0590} = {0AB16524-C710-4A71-9C8C-B2252733AFC1}
 		{4C0C747D-C1E5-4F7E-93E5-FA59D3D4051F} = {FFDA2E7C-31CE-4F30-AAE9-C55FA965E294}
 		{212AD161-28DB-4D1D-AE5F-A61C12D8B680} = {4C0C747D-C1E5-4F7E-93E5-FA59D3D4051F}
+		{F2373FCB-9DF3-40F9-AA6D-3486B812BCB1} = {FFDA2E7C-31CE-4F30-AAE9-C55FA965E294}
+		{2124151D-9DF4-4CE1-B73E-AFB94A7B74D5} = {F2373FCB-9DF3-40F9-AA6D-3486B812BCB1}
+		{728016F2-BF72-4696-B13D-F7A244EA132C} = {FFDA2E7C-31CE-4F30-AAE9-C55FA965E294}
+		{753531DE-546C-48D0-BE71-AC572131678C} = {728016F2-BF72-4696-B13D-F7A244EA132C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {83E610B5-8540-488C-B3E3-BEC49075AC95}

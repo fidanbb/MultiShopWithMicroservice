@@ -1,0 +1,23 @@
+﻿@model ImageDrive
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Add New Image</h1>
+
+<div class="container">
+
+    <form method="post" enctype="multipart/form-data">
+        <label>Product Name</label>
+        <input type="text" class="form-control border" name="Name" />
+        <br />
+        <label>Image</label>
+        <input type="file" class="form-control border" name="Photo" />
+        <br />
+        <input name="SavedUrl" type="hidden" class="form-control" />
+        <input name="SavedFileName" type="hidden" class="form-control" />
+        <button class="btn btn-outline-info">Save</button>
+    </form>
+</div>
+

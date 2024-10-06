@@ -361,3 +361,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Services/Images/MultiShopWithMicroservice.Image.WebUI/wwwroot/eng-cache-437814-i6-e7572a97a944.json

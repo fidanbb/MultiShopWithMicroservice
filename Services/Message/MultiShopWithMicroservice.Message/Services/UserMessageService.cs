@@ -80,5 +80,10 @@ namespace MultiShopWithMicroservice.Message.Services
             _messageContext.UserMessages.Update(_mapper.Map<UserMessage>(updateMessageDto));
             await _messageContext.SaveChangesAsync();
         }
+
+        public async Task<int> GetMessageCountByReceiverIdAsync(string id)
+        {
+            return await _messageContext.UserMessages.CountAsync(x => x.RecieverId == id);
+        }
     }
 }
