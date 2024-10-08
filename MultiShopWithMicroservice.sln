@@ -82,7 +82,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiShopWithMicroservice.S
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{728016F2-BF72-4696-B13D-F7A244EA132C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiShopWithMicroservice.Image.WebUI", "Services\Images\MultiShopWithMicroservice.Image.WebUI\MultiShopWithMicroservice.Image.WebUI.csproj", "{753531DE-546C-48D0-BE71-AC572131678C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiShopWithMicroservice.Image.WebUI", "Services\Images\MultiShopWithMicroservice.Image.WebUI\MultiShopWithMicroservice.Image.WebUI.csproj", "{753531DE-546C-48D0-BE71-AC572131678C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RabbitMQ", "RabbitMQ", "{C8B49988-1A53-4147-B190-435809D7469F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiShopWithMicroservice.RabbitMQApi", "Services\RabbitMQ\MultiShopWithMicroservice.RabbitMQApi\MultiShopWithMicroservice.RabbitMQApi.csproj", "{7C25764C-C513-406F-B107-8C2D73F98F52}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -174,6 +178,10 @@ Global
 		{753531DE-546C-48D0-BE71-AC572131678C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{753531DE-546C-48D0-BE71-AC572131678C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{753531DE-546C-48D0-BE71-AC572131678C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C25764C-C513-406F-B107-8C2D73F98F52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C25764C-C513-406F-B107-8C2D73F98F52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C25764C-C513-406F-B107-8C2D73F98F52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C25764C-C513-406F-B107-8C2D73F98F52}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -213,6 +221,8 @@ Global
 		{2124151D-9DF4-4CE1-B73E-AFB94A7B74D5} = {F2373FCB-9DF3-40F9-AA6D-3486B812BCB1}
 		{728016F2-BF72-4696-B13D-F7A244EA132C} = {FFDA2E7C-31CE-4F30-AAE9-C55FA965E294}
 		{753531DE-546C-48D0-BE71-AC572131678C} = {728016F2-BF72-4696-B13D-F7A244EA132C}
+		{C8B49988-1A53-4147-B190-435809D7469F} = {FFDA2E7C-31CE-4F30-AAE9-C55FA965E294}
+		{7C25764C-C513-406F-B107-8C2D73F98F52} = {C8B49988-1A53-4147-B190-435809D7469F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {83E610B5-8540-488C-B3E3-BEC49075AC95}
