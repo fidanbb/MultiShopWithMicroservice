@@ -1,5 +1,62 @@
-﻿<div class="container-fluid">
-  
+﻿﻿@using Microsoft.Extensions.Localization
+@using MultiShopWithMicroservice.WebUI.Resources
+@inject IStringLocalizer<SharedResources> localizer
+
+@* @{
+    var localizer = ServiceProvider.GetService(typeof(IStringLocalizer<SharedResources>)) as IStringLocalizer<SharedResources>;
+}
+ *@
+<div class="container-fluid">
+    <div class="row bg-secondary py-1 px-xl-5">
+        <div class="col-lg-6 d-none d-lg-block">
+            <div class="d-inline-flex align-items-center h-100">
+                <a class="text-body mr-3" href="">@localizer["About"]</a>
+                <a class="text-body mr-3" href="">@localizer["Contact"]</a>
+                <a class="text-body mr-3" href="">@localizer["Help"]</a>
+                <a class="text-body mr-3" href="">@localizer["FAQ"]</a>
+            </div>
+        </div>
+        <div class="col-lg-6 text-center text-lg-right">
+            <div class="d-inline-flex align-items-center">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Account</button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <button class="dropdown-item" type="button">@localizer["Login"]</button>
+                        <button class="dropdown-item" type="button">@localizer["Register"]</button>
+                    </div>
+                </div>
+                <div class="btn-group mx-2">
+                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">TRY</button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <button class="dropdown-item" type="button">USD</button>
+                        <button class="dropdown-item" type="button">EUR</button>
+                        <button class="dropdown-item" type="button">GBP</button>
+                        <button class="dropdown-item" type="button">CAD</button>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">EN</button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <form asp-action="Index" asp-controller="Information" asp-route-returnUrl="@Context.Request.Path" method="post">
+                            <button type="submit" name="culture" value="fr" class="dropdown-item">French</button>
+                            <button type="submit" name="culture" value="de" class="dropdown-item">German</button>
+                            <button type="submit" name="culture" value="it" class="dropdown-item">Italian</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="d-inline-flex align-items-center d-block d-lg-none">
+                <a href="" class="btn px-0 ml-2">
+                    <i class="fas fa-heart text-dark"></i>
+                    <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
+                </a>
+                <a href="" class="btn px-0 ml-2">
+                    <i class="fas fa-shopping-cart text-dark"></i>
+                    <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
+                </a>
+            </div>
+        </div>
+</div>
     <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
         <div class="col-lg-4">
             <a href="" class="text-decoration-none">
